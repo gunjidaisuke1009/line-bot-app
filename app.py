@@ -29,7 +29,6 @@ configuration = Configuration(access_token=LINE_CHANNEL_ACCESS_TOKEN)
 
 @app.route("/callback", methods=['POST'])
 def callback():
-    # LINEからのリクエストを受け取る
     body = request.get_data(as_text=True)
     signature = request.headers.get('X-Line-Signature', '')
 
@@ -47,8 +46,6 @@ def callback():
 @handler.add(MessageEvent, message=TextMessageContent)
 def handle_message(event):
     user_message = event.message.text
-
-    # ここにFAQ検索・ChatGPT応答ロジックを記述（省略可能）
     response_text = f"あなたのメッセージ: {user_message}"
 
     with ApiClient(configuration) as api_client:
@@ -62,5 +59,4 @@ def handle_message(event):
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(host="0.0.0.0", port=10000)
